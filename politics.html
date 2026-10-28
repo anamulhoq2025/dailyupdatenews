@@ -1,0 +1,238 @@
+        <!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>দৈনিক আপডেট নিউজ - Doinik Update News</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        html, body {
+            font-family: 'Hind Siliguri', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .brand-container {
+            position: relative;
+        }
+        .bg-logo-watermark {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.08;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+            object-fit: contain;
+        }
+    </style>
+    <body class="bg-gray-100 text-gray-900">
+</head>
+<!-- Top Bar & Header Start -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm w-full">
+        <!-- Dynamic Date Bar -->
+        <div class="max-w-7xl mx-auto px-3 py-1.5 flex items-center justify-between text-[11px] md:text-xs text-gray-500 border-b border-gray-100">
+            <div class="flex items-center gap-1.5 flex-wrap">
+                <span id="date-text-bn" class="font-medium">লোড হচ্ছে...</span>
+                <span class="text-gray-300">|</span>
+                <span id="date-text-en" class="font-medium text-gray-400">Loading...</span>
+                <span class="hidden md:inline-block text-gray-300">|</span>
+                <span class="hidden md:inline-block"><span data-bn="ই-পেপার" data-en="E-Paper">ই-পেপার</span></span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleLanguage()" id="lang-btn" class="font-bold text-red-600 border border-red-200 px-1.5 py-0.2 rounded text-[10px] hover:bg-red-50 transition">
+                    English
+                </button>
+                <a href="index.html#archive-section" class="hover:text-red-600 font-semibold text-red-600" data-bn="আর্কাইভ" data-en="Archive">আর্কাইভ</a>
+            </div>
+        </div>
+
+        <!-- Branding Section with Logo and Watermark -->
+        <div class="max-w-7xl mx-auto px-3 py-2.5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 min-w-0">
+                <img src="assets/images/logo.jpeg" alt="Logo" style="width: 45px; height: 45px;" class="md:w-[75px] md:h-[75px] object-cover rounded-[100%] shadow-xs border border-gray-200 shrink-0">
+                
+                <div class="brand-container relative px-2 py-1 min-w-0">
+                    <img src="assets/images/logo.jpeg" alt="Background Logo" class="bg-logo-watermark">
+                    <h1 class="text-lg sm:text-2xl md:text-4xl font-extrabold tracking-tight text-red-600 uppercase relative z-10 leading-none whitespace-nowrap overflow-hidden text-ellipsis" id="brand-title">দৈনিক আপডেট নিউজ</h1>
+                    <span class="text-[8px] md:text-xs text-gray-600 tracking-wider block font-bold mt-0.5 relative z-10 whitespace-nowrap">DOINIK UPDATE NEWS</span>
+                </div>
+            </a>
+            
+            <div class="flex items-center gap-1 md:gap-3 shrink-0">
+                <button type="button" onclick="handleNotificationClick()" class="relative text-gray-700 hover:text-red-600 p-1 md:p-2 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none transition" title="নোটিফিকেশন">
+                    <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                    <span class="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
+                </button>
+
+                <a href="admin.html" class="bg-red-600 text-white px-1.5 py-0.5 md:px-3 md:py-1.5 rounded text-[9px] md:text-xs font-semibold hover:bg-red-700 transition shrink-0" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</a>
+                
+                <!-- Mobile Menu Three-Bar Toggle Button -->
+                <button type="button" onclick="myMenuToggle()" class="md:hidden text-gray-700 hover:text-red-600 p-1 bg-gray-100 rounded-lg border border-gray-200 focus:outline-none shrink-0">
+                    <svg id="icon-bars" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Desktop Navbar with All Category Links -->
+        <nav class="hidden md:block border-t border-gray-200 bg-white">
+            <div class="max-w-7xl mx-auto px-4 flex items-center justify-between py-2">
+                <div class="flex items-center space-x-5 text-sm font-semibold text-gray-700">
+                    <a href="index.html" class="hover:text-red-600 transition" data-bn="হোম" data-en="Home">হোম</a>
+                    <a href="politics.html" class="hover:text-red-600 transition" data-bn="রাজনীতি" data-en="Politics">রাজনীতি</a>
+                    <a href="bangladesh.html" class="hover:text-red-600 transition" data-bn="বাংলাদেশ" data-en="Bangladesh">বাংলাদেশ</a>
+                    <a href="crime.html" class="hover:text-red-600 transition" data-bn="অপরাধ" data-en="Crime">অপরাধ</a>
+                    <a href="world.html" class="hover:text-red-600 transition" data-bn="বিশ্ব" data-en="World">বিশ্ব</a>
+                    <a href="business.html" class="hover:text-red-600 transition" data-bn="বাণিজ্য" data-en="Business">বাণিজ্য</a>
+                    <a href="sports.html" class="hover:text-red-600 transition" data-bn="খেলাধুলা" data-en="Sports">খেলাধুলা</a>
+                    <a href="entertainment.html" class="hover:text-red-600 transition" data-bn="বিনোদন" data-en="Entertainment">বিনোদন</a>
+                    <a href="job.html" class="hover:text-red-600 transition font-bold text-red-600" data-bn="চাকরি" data-en="Job Circular"><i class="fa-solid fa-briefcase"></i> চাকরি</a>
+                    <a href="index.html#archive-section" class="hover:text-red-600 transition" data-bn="আর্কাইভ" data-en="Archive">আর্কাইভ</a>
+                </div>
+                <!-- Navbar Search Box -->
+                <div class="relative">
+                    <input type="text" id="navbar-search" oninput="handleSearch(this.value)" placeholder="খবর খুঁজুন..." class="text-xs px-3 py-1.5 pl-8 border border-gray-300 rounded-full focus:outline-none focus:border-red-600 w-48">
+                    <i class="fa-solid fa-search absolute left-3 top-2 text-gray-400 text-xs"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Dropdown Menu (Three-Bar Toggle Content) -->
+        <div id="mobile-dropdown" class="hidden md:hidden border-t border-gray-200 bg-white px-6 py-4 space-y-3 text-sm font-semibold text-gray-700 shadow-md w-full">
+            <div class="relative mb-3">
+                <input type="text" id="mobile-search" oninput="handleSearch(this.value)" placeholder="খবর খুঁজুন..." class="text-xs px-3 py-2 pl-8 border border-gray-300 rounded-full focus:outline-none focus:border-red-600 w-full">
+                <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+            </div>
+            <a href="index.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="হোম" data-en="Home">হোম</a>
+            <a href="politics.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="রাজনীতি" data-en="Politics">রাজনীতি</a>
+            <a href="bangladesh.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="বাংলাদেশ" data-en="Bangladesh">বাংলাদেশ</a>
+            <a href="crime.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="অপরাধ" data-en="Crime">অপরাধ</a>
+            <a href="world.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="বিশ্ব" data-en="World">বিশ্ব</a>
+            <a href="business.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="বাণিজ্য" data-en="Business">বাণিজ্য</a>
+            <a href="sports.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="খেলাধুলা" data-en="Sports">খেলাধুলা</a>
+            <a href="entertainment.html" class="block hover:text-red-600 py-1 border-b border-gray-100" data-bn="বিনোদন" data-en="Entertainment">বিনোদন</a>
+            <a href="job.html" class="block text-red-600 font-bold py-1 border-b border-gray-100" data-bn="চাকরি" data-en="Job Circular"><i class="fa-solid fa-briefcase"></i> চাকরি</a>
+            <a href="index.html#archive-section" class="block hover:text-red-600 py-1" data-bn="আর্কাইভ" data-en="Archive">আর্কাইভ</a>
+        </div>
+    </header>
+    <!-- Top Bar & Header End -->
+
+    <script src="javascript/header.js"></script>
+    <script src="javascript/autonewsupdate.js"></script>
+    <script src="javascript/article.js"></script>
+    <script src="javascript/job.js"></script>
+    <script src="javascript/main.js"></script>
+    <script src="javascript/sports.js"></script>
+    <script src="javascript/login.js"></script>
+    <script src="javascript/admin.js"></script>
+    <script src="javascript/bangladesh.ja"></script>
+    <script src="javascript/world.js"></script>
+    <script src="javascript/business.js"></script>
+    <script src="javascript/entertainment.js"></script>
+    <script src="javascript/politics.js"></script>
+    <script src="javascript/crime.js"></script>
+
+     </body>
+     </html>
+     <!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>রাজনীতি - News Portal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Support -->
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Tiro Bangla', serif, sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Header Container -->
+  <div id="header-container">
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold text-red-600">দৈনিক আপডেট নিউজ</a>
+        <nav class="space-x-4 text-sm font-semibold">
+          <a href="index.html" class="hover:text-red-600">হোম</a>
+          <a href="bangladesh.html" class="hover:text-red-600">বাংলাদেশ</a>
+          <a href="politics.html" class="text-red-600 border-b-2 border-red-600 pb-1">রাজনীতি</a>
+          <a href="world.html" class="hover:text-red-600">বিশ্ব</a>
+          <a href="trade.html" class="hover:text-red-600">বাণিজ্য</a>
+          <a href="sports.html" class="hover:text-red-600">খেলা</a>
+          <a href="job.html" class="hover:text-red-600">চাকরির খবর</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <!-- Main Content Section -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    
+    <!-- Section Title & Live Status -->
+    <div class="border-b-2 border-red-600 pb-3 mb-6 flex justify-between items-center">
+      <h1 class="text-2xl sm:text-3xl font-bold text-red-600 flex items-center gap-2">
+        🏛️ রাজনীতি
+      </h1>
+      <span class="text-xs sm:text-sm text-gray-500 flex items-center gap-1.5 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+        </span>
+        রাজনীতি সংবাদ লাইভ
+      </span>
+    </div>
+
+    <!-- Lead Story + Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Main Content Area (8 Columns) -->
+      <div class="lg:col-span-8 space-y-8">
+        
+        <!-- Main Lead Article (Top Priority) -->
+        <div id="lead-story-container">
+          <!-- JS will render top politics news here -->
+        </div>
+
+        <!-- News Grid (Remaining Politics Stories) -->
+        <div id="politics-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- JS will render grid news cards here -->
+        </div>
+
+      </div>
+
+      <!-- Sidebar (4 Columns) - রাজনৈতিক আলোচিত -->
+      <div class="lg:col-span-4">
+        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200 sticky top-6">
+          <h2 class="text-lg font-bold text-red-600 border-b pb-2 mb-4">
+            📌 আলোচিত রাজনৈতিক খবর
+          </h2>
+          <div id="sidebar-popular-list" class="space-y-4">
+            <!-- Sidebar items load here -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+
+</body>
+</html>
